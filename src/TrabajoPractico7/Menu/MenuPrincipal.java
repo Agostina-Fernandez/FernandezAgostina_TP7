@@ -15,11 +15,18 @@ import java.util.HashSet;
 public class MenuPrincipal extends javax.swing.JFrame {
     private static HashSet<Alumno> alumnos;
     private static HashSet<Materia> materias;
+    
+    public static HashSet<Alumno> getAlumnos() {
+        return alumnos;
+    }
     /**
      * Creates new form MenuPrincipal
      */
     public MenuPrincipal() {
         initComponents();
+        
+        alumnos = new HashSet<>();
+        materias = new HashSet<>();
     }
 
     /**
