@@ -5,17 +5,22 @@
  */
 package TrabajoPractico7.Menu;
 
+import TrabajoPractico7.Clases.Materia;
+import java.util.HashSet;
+
 /**
  *
  * @author Aryl
  */
 public class VistaMaterias extends javax.swing.JInternalFrame {
-
+    private HashSet<Materia> materias;
     /**
      * Creates new form FormularioMaterias
      */
-    public VistaMaterias() {
+    public VistaMaterias(HashSet<Materia> materias) {
         initComponents();
+        
+        this.materias = materias;
     }
 
     /**

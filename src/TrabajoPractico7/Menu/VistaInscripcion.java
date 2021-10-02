@@ -5,17 +5,24 @@
  */
 package TrabajoPractico7.Menu;
 
+import TrabajoPractico7.Clases.*;
+import java.util.HashSet;
+
 /**
  *
  * @author Aryl
  */
 public class VistaInscripcion extends javax.swing.JInternalFrame {
-
+    private HashSet<Alumno> alumnos;
+    private HashSet<Materia> materias;
     /**
      * Creates new form VistaInscripcion
      */
-    public VistaInscripcion() {
+    public VistaInscripcion(HashSet<Materia> materias, HashSet<Alumno> alumnos) {
         initComponents();
+        
+        this.alumnos = alumnos;
+        this.materias = materias;
     }
 
     /**

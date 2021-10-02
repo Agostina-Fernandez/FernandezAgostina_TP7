@@ -9,12 +9,12 @@ public class Alumno {
     
     private HashSet<Materia> materias;
 
-    public Alumno(int legajo, String apellido, String Nombre, HashSet<Materia> materias) {
+    public Alumno(int legajo, String apellido, String Nombre) {
         this.legajo = legajo;
         this.apellido = apellido;
         this.Nombre = Nombre;
         
-        this.materias = materias;
+        this.materias = new HashSet<>();
     }
     
     /* GETTERS */
@@ -59,7 +59,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno{" + "apellido=" + apellido + ", Nombre=" + Nombre + '}';
+        return apellido + " " + Nombre;
     }
 
     @Override
@@ -77,6 +77,4 @@ public class Alumno {
             return legajo == otra.getLegajo();
         }
     }
-    
-    
 }
