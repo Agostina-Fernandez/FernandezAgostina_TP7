@@ -7,6 +7,7 @@ package TrabajoPractico7.Menu;
 
 import TrabajoPractico7.Clases.Alumno;
 import java.util.HashSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -64,20 +65,46 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel4.setText("Nombre");
 
+        jTLegajo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTLegajoFocusLost(evt);
+            }
+        });
+        jTLegajo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTLegajoActionPerformed(evt);
+            }
+        });
+
         jBBuscar.setBackground(new java.awt.Color(0, 102, 102));
         jBBuscar.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jBBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jBBuscar.setText("Q");
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
 
         jBGuardar.setBackground(new java.awt.Color(0, 102, 0));
         jBGuardar.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jBGuardar.setForeground(new java.awt.Color(255, 255, 255));
         jBGuardar.setText("Guardar");
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
 
         jBNuevo.setBackground(new java.awt.Color(0, 0, 102));
         jBNuevo.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jBNuevo.setForeground(new java.awt.Color(255, 255, 255));
         jBNuevo.setText("Nuevo");
+        jBNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNuevoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -200,6 +227,72 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTLegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTLegajoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTLegajoActionPerformed
+
+    private void jTLegajoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTLegajoFocusLost
+        // TODO add your handling code here:
+        if (!"".equals(jTLegajo.getText())){
+            try {
+                int x = Integer.parseInt(jTLegajo.getText());
+            } catch ( NumberFormatException nf) {
+                JOptionPane.showMessageDialog(this, "Sólo valores numéricos");
+                
+                jTLegajo.requestFocus();
+            }
+        }
+        
+        for(Alumno alumno : alumnos){
+            if (jTLegajo.getText().equals(String.valueOf(alumno.getLegajo()))){
+                jTApellido.setText(alumno.getApellido());
+                jTNombre.setText(alumno.getNombre());
+            }
+        }
+    }//GEN-LAST:event_jTLegajoFocusLost
+
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+        // TODO add your handling code here:
+        String legajoT = jTLegajo.getText();
+        
+        if ("".equals(legajoT)){
+            JOptionPane.showMessageDialog(this, "Ingresar número de legajo");
+        } else {
+            if (legajoT.matches("[0-9]+")){
+                int legajo = Integer.parseInt(legajoT);
+            } else {
+                JOptionPane.showMessageDialog(this, "Valor ingresado no válido");
+            }
+        }
+    }//GEN-LAST:event_jBBuscarActionPerformed
+
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        // TODO add your handling code here:
+        
+        String legajoT = jTLegajo.getText();
+        String nombre = jTNombre.getText();
+        String apellido = jTApellido.getText();
+        
+        if("".equals(legajoT) || "".equals(nombre) || "".equals(apellido)){
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios");
+        } else {
+            if (legajoT.matches("[0-9}+")){
+                int legajo = Integer.parseInt(legajoT);
+                
+                alumnos.add(new Alumno(legajo, apellido, nombre));
+            } else {
+                JOptionPane.showMessageDialog(this, "Se han introducido valores no válidos");
+            }
+        }
+    }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
+        // TODO add your handling code here:
+        jTLegajo.setText("");
+        jTNombre.setText("");
+        jTApellido.setText("");
+    }//GEN-LAST:event_jBNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

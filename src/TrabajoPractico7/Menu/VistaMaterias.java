@@ -7,6 +7,7 @@ package TrabajoPractico7.Menu;
 
 import TrabajoPractico7.Clases.Materia;
 import java.util.HashSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -63,6 +64,11 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel4.setText("Año al que Pertenece");
 
+        jTCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTCodigoFocusLost(evt);
+            }
+        });
         jTCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTCodigoActionPerformed(evt);
@@ -75,6 +81,11 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
             }
         });
 
+        jTAnio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTAnioFocusLost(evt);
+            }
+        });
         jTAnio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTAnioActionPerformed(evt);
@@ -90,11 +101,21 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         jBNuevo.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jBNuevo.setForeground(new java.awt.Color(255, 255, 255));
         jBNuevo.setText("Nuevo");
+        jBNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNuevoActionPerformed(evt);
+            }
+        });
 
         jBGuardar.setBackground(new java.awt.Color(0, 102, 0));
         jBGuardar.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jBGuardar.setForeground(new java.awt.Color(255, 255, 255));
         jBGuardar.setText("Guardar");
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -242,6 +263,67 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jTCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTCodigoFocusLost
+        // TODO add your handling code here:
+        if (!"".equals(jTCodigo.getText())){
+            try {
+                int x = Integer.parseInt(jTCodigo.getText());
+            } catch ( NumberFormatException nf) {
+                JOptionPane.showMessageDialog(this, "Sólo valores numéricos");
+                
+                jTCodigo.requestFocus();
+            }
+        }
+        
+        for(Materia materia : materias){
+            if (jTCodigo.getText().equals(String.valueOf(materia.getIdMateria()))){
+                jTNombre.setText(materia.getNombre());
+                jTAnio.setText(String.valueOf(materia.getAnio()));
+            }
+        }
+    }//GEN-LAST:event_jTCodigoFocusLost
+
+    private void jTAnioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTAnioFocusLost
+        // TODO add your handling code here:
+        if (!"".equals(jTAnio.getText())){
+            try {
+                int x = Integer.parseInt(jTAnio.getText());
+            } catch ( NumberFormatException nf) {
+                JOptionPane.showMessageDialog(this, "Sólo valores numéricos");
+                
+                jTAnio.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_jTAnioFocusLost
+
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        // TODO add your handling code here:
+        
+        String codigoT = jTCodigo.getText();
+        String nombre = jTNombre.getText();
+        String anioT = jTAnio.getText();
+        
+        if("".equals(codigoT) || "".equals(nombre) || "".equals(anioT)){
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios");
+        } else {
+            if (codigoT.matches("[0-9}+")){
+                int codigo = Integer.parseInt(codigoT);
+                int anio = Integer.parseInt(anioT);
+                
+                materias.add(new Materia(codigo, nombre, anio));
+            } else {
+                JOptionPane.showMessageDialog(this, "Se han introducido valores no válidos");
+            }
+        }
+    }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
+        // TODO add your handling code here:
+        jTCodigo.setText("");
+        jTNombre.setText("");
+        jTAnio.setText("");
+    }//GEN-LAST:event_jBNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
