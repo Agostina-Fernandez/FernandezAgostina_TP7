@@ -5,17 +5,23 @@
  */
 package TrabajoPractico7.Menu;
 
+import TrabajoPractico7.Clases.Alumno;
+import java.util.HashSet;
+
 /**
  *
  * @author Aryl
  */
 public class VistaAlumnos extends javax.swing.JInternalFrame {
-
+    private HashSet<Alumno> alumnos;
     /**
      * Creates new form VistaAlumnos
+     * @param alumnos
      */
-    public VistaAlumnos() {
+    public VistaAlumnos(HashSet<Alumno> alumnos) {
         initComponents();
+        
+        this.alumnos = alumnos;
     }
 
     /**

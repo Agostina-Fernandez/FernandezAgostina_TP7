@@ -44,4 +44,22 @@ public class Materia {
     public void setAnio(int anio) {
         this.anio = anio;
     }
+    
+    /* OVERRIDES */
+    
+    @Override
+    public int hashCode(){
+        return idMateria;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Materia)){
+            return false;
+        } else {
+            Materia otra = (Materia)obj;
+            
+            return idMateria == otra.getIdMateria();
+        }
+    }
 }
