@@ -96,6 +96,11 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         jBBuscar.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jBBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jBBuscar.setText("Q");
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
 
         jBNuevo.setBackground(new java.awt.Color(0, 0, 102));
         jBNuevo.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
@@ -307,11 +312,12 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         if("".equals(codigoT) || "".equals(nombre) || "".equals(anioT)){
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios");
         } else {
-            if (codigoT.matches("[0-9}+")){
+            if (codigoT.matches("[0-9]+")){
                 int codigo = Integer.parseInt(codigoT);
                 int anio = Integer.parseInt(anioT);
                 
                 materias.add(new Materia(codigo, nombre, anio));
+                JOptionPane.showMessageDialog(this, "Materia registrada exitosamente");
             } else {
                 JOptionPane.showMessageDialog(this, "Se han introducido valores no válidos");
             }
@@ -324,6 +330,35 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         jTNombre.setText("");
         jTAnio.setText("");
     }//GEN-LAST:event_jBNuevoActionPerformed
+
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+        // TODO add your handling code here:
+        String codigoT = jTCodigo.getText();
+        
+        if ("".equals(codigoT)){
+            JOptionPane.showMessageDialog(this, "Ingresar ID de materia");
+        } else {
+            if (codigoT.matches("[0-9]+")){
+                int legajo = Integer.parseInt(codigoT);
+                boolean control = false;
+                
+                for (Materia materia : materias){
+                    if (materia.getIdMateria() == legajo){
+                        jTNombre.setText(materia.getNombre());
+                        jTAnio.setText(String.valueOf(materia.getAnio()));
+                        
+                        control = true;
+                    }
+                }
+                
+                if (!control) {
+                    JOptionPane.showMessageDialog(this, "No existen coincidencias para el legajo " + legajo);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Valor ingresado no válido");
+            }
+        }
+    }//GEN-LAST:event_jBBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

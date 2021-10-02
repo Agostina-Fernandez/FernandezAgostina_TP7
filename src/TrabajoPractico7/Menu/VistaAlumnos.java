@@ -171,6 +171,11 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         jBSalir.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jBSalir.setForeground(new java.awt.Color(255, 255, 255));
         jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
 
         jLabel5.setForeground(new java.awt.Color(0, 102, 102));
         jLabel5.setText("Fernández Rodríguez Agostina Ailén");
@@ -242,13 +247,16 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
                 
                 jTLegajo.requestFocus();
             }
-        }
-        
-        for(Alumno alumno : alumnos){
-            if (jTLegajo.getText().equals(String.valueOf(alumno.getLegajo()))){
-                jTApellido.setText(alumno.getApellido());
-                jTNombre.setText(alumno.getNombre());
-            }
+            
+            if(jTLegajo.getText().matches("[0-9]*")){
+                
+                for (Alumno alumno : alumnos){
+                    if (alumno.getLegajo() == Integer.parseInt(jTLegajo.getText())){
+                        jTApellido.setText(alumno.getApellido());
+                        jTNombre.setText(alumno.getNombre());
+                    }
+                }
+            } 
         }
     }//GEN-LAST:event_jTLegajoFocusLost
 
@@ -261,6 +269,20 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         } else {
             if (legajoT.matches("[0-9]+")){
                 int legajo = Integer.parseInt(legajoT);
+                boolean control = false;
+                
+                for (Alumno alumno : alumnos){
+                    if (alumno.getLegajo() == legajo){
+                        jTNombre.setText(alumno.getNombre());
+                        jTApellido.setText(alumno.getApellido());
+                        
+                        control = true;
+                    }
+                }
+                
+                if (!control) {
+                    JOptionPane.showMessageDialog(this, "No existen coincidencias para el legajo " + legajo);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Valor ingresado no válido");
             }
@@ -277,10 +299,15 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         if("".equals(legajoT) || "".equals(nombre) || "".equals(apellido)){
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios");
         } else {
-            if (legajoT.matches("[0-9}+")){
+            if (legajoT.matches("[0-9]*")){
                 int legajo = Integer.parseInt(legajoT);
                 
-                alumnos.add(new Alumno(legajo, apellido, nombre));
+                if (alumnos.add(new Alumno(legajo, apellido, nombre))){
+                    alumnos.add(new Alumno(legajo, apellido, nombre));
+                    JOptionPane.showMessageDialog(this, "Alumno " + legajo +" ingresado correctamnete");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo realizar registro.\n\nAlumno " + legajo +" previamente registrado");
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Se han introducido valores no válidos");
             }
@@ -293,6 +320,12 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         jTNombre.setText("");
         jTApellido.setText("");
     }//GEN-LAST:event_jBNuevoActionPerformed
+
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        // TODO add your handling code here:
+        
+        dispose();
+    }//GEN-LAST:event_jBSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
